@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos por Categoria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!--Zapzap-->
+    <a href="https://api.whatsapp.com/send?phone=5554999999999&amp;text=Texto%20aqui" target="_blank" style="position:fixed;bottom:20px;right:30px;">
+        <svg enable-background="new 0 0 512 512" width="60" height="60" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <path d="M256.064,0h-0.128l0,0C114.784,0,0,114.816,0,256c0,56,18.048,107.904,48.736,150.048l-31.904,95.104  l98.4-31.456C155.712,496.512,204,512,256.064,512C397.216,512,512,397.152,512,256S397.216,0,256.064,0z" fill="#00FF00"></path>
+            <path d="m405.02 361.5c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.62-127.46-112.58-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016 0.16 8.576 0.288 7.52 0.32 11.296 0.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744s-7.36 7.68-11.136 12.352c-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z" fill="#FAFAFA"></path>
+        </svg>
+    </a>
+    <!--Header-->    
+    <header>
+        <div class="logo">
+            <a href="/"><img src="https://th.bing.com/th/id/OIP.V3tYcFTCQjKJkSBiP3rbDAHaHa?rs=1&pid=ImgDetMain" alt="Logo"></a>
+        </div>
+        <h1>Bandeiras.com</h1>
+        <input type="text" placeholder="Buscar produtos...">
+            <a href="{{ url_for('cart.view_cart') }}"><img src="https://cdn-icons-png.flaticon.com/128/14821/14821177.png" alt="Carrinho"></a>
+        <div class="user">
+            <a href="user.html"><img src="https://t3.ftcdn.net/jpg/05/60/26/08/240_F_560260880_O1V3Qm2cNO5HWjN66mBh2NrlPHNHOUxW.jpg" alt="Usuário"></a>
+        </div>
+    </header>
+    <div class="category-container">
+        <h1>Produtos na Categoria</h1>
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-item">
+                <img src="{{ product.images[0] }}" alt="{{ product.name }}" class="product-image">
+                <h3>{{ product.name }}</h3>
+                <p>Preço: R${{ product.price }}</p>
+                <a href="{{ url_for('product.product_detail', product_id=product.id) }}">Ver Detalhes</a>
+                <form action="{{ url_for('cart.add_to_cart', product_id=product.id) }}" method="POST">
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button type="submit">Adicionar ao Carrinho</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="Contato">
+        <br><h1>Contato</h1>
+        <br>
+        <div class="tb">
+            <table>
+                <tr><td><img src="https://cdn-icons-png.flaticon.com/128/447/447031.png" width="25px"> Rua das Flores, 69 - Centro, Caxias do Sul - RS</td></tr>    
+                <tr><td><img src="https://cdn-icons-png.flaticon.com/128/159/159832.png" width="25px"> +55 (54) 99999-9999</td></tr>
+                <tr><td><img src="https://cdn-icons-png.flaticon.com/128/646/646094.png" width="25px"> bandeirascom@gmail.com</td></tr>
+                <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1384/1384031.png" width="25px"> Bandeirascom</td></tr>
+            </table>
+        </div>
+    
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6906.633286942564!2d-47.859006290385935!3d-15.799772748893329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a309ae31de7d3%3A0xc7c45a6f5981ca10!2sPal%C3%A1cio%20do%20Planalto!5e0!3m2!1spt-BR!2sbr!4v1670193848840!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    
+        <div class="copyright">    
+            <p>© 2024 Bandeiras.com. Todos os direitos reservados.</p>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
